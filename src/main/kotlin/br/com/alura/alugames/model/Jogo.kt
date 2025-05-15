@@ -1,4 +1,4 @@
-package org.api.test
+package org.api.test.br.com.alura.alugames.model
 
 
 data class Jogo( val titulo: String, var capa: String) {

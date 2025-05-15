@@ -1,12 +1,8 @@
-package org.api.test
+package org.api.test.br.com.alura.alugames.principal
 
-import com.google.gson.Gson
-import java.net.URI
-import java.net.http.HttpClient
-import java.net.http.HttpRequest
-import java.net.http.HttpResponse.BodyHandlers
+import br.com.alura.alugames.service.ApiConsumer
+import org.api.test.br.com.alura.alugames.model.Jogo
 import java.util.*
-import java.util.logging.Logger
 
 /**
  * API de consulta de jogos https://www.cheapshark.com
@@ -15,23 +11,16 @@ fun main() {
     val leitura = Scanner(System.`in`)
     println("Digite o codigo do jogo para buscar: ")
     val busca = leitura.nextLine()
-    val url = "https://www.cheapshark.com/api/1.0/games?id=$busca"
 
-    val client: HttpClient = HttpClient.newHttpClient()
-    val request = HttpRequest.newBuilder()
-        .uri(URI.create(url))
-        .build()
+    val search = ApiConsumer()
+    var informacaoJogo = search.searchGame(busca)
 
-    val response = client
-        .send(request, BodyHandlers.ofString())
-
-    val json = response.body()
-    val gson = Gson()
     var meuJogo: Jogo? = null
 
     val result = runCatching {
-        val meuInfoJogo = gson.fromJson(json,InfoJogo::class.java)
-        meuJogo = Jogo(meuInfoJogo.info.title, meuInfoJogo.info.thumb)
+        if (informacaoJogo != null) {
+            meuJogo = Jogo(informacaoJogo.info.title, informacaoJogo.info.thumb)
+        }
 
     }
 
