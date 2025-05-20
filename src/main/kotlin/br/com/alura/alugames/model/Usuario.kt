@@ -8,12 +8,12 @@ import kotlin.random.Random
 data class Usuario(var nome:String,var email:String){
     val util = Util()
 
-    init{
-        if (nome.isNullOrBlank()){
-            throw IllegalArgumentException("Nome invalido ou em branco")
-        }
-        util.validateEmail(this.email)
-    }
+//    init{
+//        if (nome.isNullOrBlank()){
+//            throw IllegalArgumentException("Nome invalido ou em branco")
+//        }
+//        util.validateEmail(this.email)
+//    }
 
     var dataNascimento: String? = null
     var usuario: String? = null

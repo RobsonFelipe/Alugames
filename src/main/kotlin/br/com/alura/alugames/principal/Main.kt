@@ -3,6 +3,7 @@ package org.api.test.br.com.alura.alugames.principal
 import br.com.alura.alugames.model.Usuario
 import br.com.alura.alugames.service.ApiConsumer
 import org.api.test.br.com.alura.alugames.model.Jogo
+import transformarEmIdade
 import java.util.*
 
 /**
@@ -12,6 +13,7 @@ fun main() {
     val leitura = Scanner(System.`in`)
     var usuario = Usuario.criarGamer(leitura)
     println("Cadastro realizado com sucesso.")
+    println("Idade do usuario: " + usuario.dataNascimento?.transformarEmIdade())
     do {
         println("Digite o codigo do jogo para buscar: ")
         val busca = leitura.nextLine()
@@ -27,11 +29,12 @@ fun main() {
             }
 
         }
-
+        //Erro ao nao encontrar o jogo
         result.onFailure {
             println("Retorno vazio. Tente outro id.")
         }
 
+        //Inserir um descrição para o jogo e nao incluir jogo null
         result.onSuccess {
             println("Deseja inserir uma descrição personalizada? S/N")
             val opcao = leitura.nextLine()
@@ -47,7 +50,11 @@ fun main() {
                 println(meuJogo)
             }
 
-            usuario.jogosBuscados.add(meuJogo)
+            if (meuJogo != null) {
+                usuario.jogosBuscados.add(meuJogo)
+            }
+
+
         }
         println("Deseja consultar um novo jogo? S/N")
         val novaConsulta = leitura.nextLine()
@@ -55,6 +62,39 @@ fun main() {
 
     println("Jogos buscados:")
     println(usuario.jogosBuscados)
+
+    //Ordenação dos jogos por titulo
+    println("Jogos ordenados por nome")
+    usuario.jogosBuscados.sortBy {
+        it?.titulo
+    }
+    usuario.jogosBuscados.forEach {
+        println("Titulo:" + it?.titulo)
+    }
+
+    //Inclusao do filtro Hard Coded
+    val filtro = usuario.jogosBuscados.filter {
+        it?.titulo?.contains("Batman", true) ?: false
+    }
+    println("\n Jogos com filtro")
+    println(filtro)
+
+    //Exclusao do jogo da lista
+    println("\n Deseja excluir algum jogo? S/N")
+    val exclusao = leitura.nextLine()
+
+    if (exclusao.equals("S",true)){
+        println(usuario.jogosBuscados)
+        println("\n Qual jogo deseja excluir? ")
+        val jogo = leitura.nextInt()
+        usuario.jogosBuscados.removeAt(jogo)
+    }
+
+    //Lista atualizada
+    println("\n Lista atualizada")
+    println(usuario.jogosBuscados)
+
+
     println("Busca foi finalizada com sucesso.")
 
 }
