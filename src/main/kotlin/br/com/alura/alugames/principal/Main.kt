@@ -13,7 +13,9 @@ fun main() {
     val leitura = Scanner(System.`in`)
     var usuario = Usuario.criarGamer(leitura)
     println("Cadastro realizado com sucesso.")
-    println("Idade do usuario: " + usuario.dataNascimento?.transformarEmIdade())
+    if (!usuario.dataNascimento.isNullOrBlank()) {
+        println("Idade do usuario: " + usuario.dataNascimento?.transformarEmIdade())
+    }
     do {
         println("Digite o codigo do jogo para buscar: ")
         val busca = leitura.nextLine()
