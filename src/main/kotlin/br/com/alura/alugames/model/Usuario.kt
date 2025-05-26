@@ -2,6 +2,7 @@ package br.com.alura.alugames.model
 
 import br.com.alura.alugames.util.Util
 import org.api.test.br.com.alura.alugames.model.Jogo
+import java.time.LocalDate
 import java.util.*
 import kotlin.random.Random
 
@@ -14,7 +15,7 @@ data class Usuario(var nome:String,var email:String){
 //        }
 //        util.validateEmail(this.email)
 //    }
-
+    val jogosAlugados: MutableList<Aluguel> = mutableListOf<Aluguel>()
     var dataNascimento: String? = null
     var usuario: String? = null
         set(value) {
@@ -47,6 +48,12 @@ data class Usuario(var nome:String,var email:String){
         val num = Random.nextInt(1000)
         val tag = String.format("%04d", num)
         this.id = "$usuario#$tag"
+    }
+
+    fun alugarJogo(jogo:Jogo, periodo:Periodo): Aluguel{
+        val aluguel = Aluguel(this,jogo,periodo)
+        jogosAlugados.add(aluguel)
+        return aluguel
     }
 
     companion object{
