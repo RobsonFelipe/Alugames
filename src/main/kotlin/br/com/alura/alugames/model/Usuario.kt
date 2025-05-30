@@ -9,12 +9,13 @@ import kotlin.random.Random
 data class Usuario(var nome:String,var email:String){
     val util = Util()
 
-//    init{
-//        if (nome.isNullOrBlank()){
-//            throw IllegalArgumentException("Nome invalido ou em branco")
-//        }
-//        util.validateEmail(this.email)
-//    }
+    init{
+        if (nome.isNullOrBlank()){
+            throw IllegalArgumentException("Nome invalido ou em branco")
+        }
+        util.validateEmail(this.email)
+    }
+    var plano: Plano = PlanoAvulso("BRONZE")
     val jogosAlugados: MutableList<Aluguel> = mutableListOf<Aluguel>()
     var dataNascimento: String? = null
     var usuario: String? = null
@@ -54,6 +55,12 @@ data class Usuario(var nome:String,var email:String){
         val aluguel = Aluguel(this,jogo,periodo)
         jogosAlugados.add(aluguel)
         return aluguel
+    }
+
+    fun jogosDoMes(mes:Int): List<Jogo> {
+        return jogosAlugados
+            .filter { aluguel ->  aluguel.periodo.dataInicial.monthValue == mes}
+            .map { aluguel ->  aluguel.jogo}
     }
 
     companion object{
