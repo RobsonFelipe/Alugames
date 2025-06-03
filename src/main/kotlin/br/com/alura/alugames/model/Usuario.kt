@@ -6,7 +6,7 @@ import java.time.LocalDate
 import java.util.*
 import kotlin.random.Random
 
-data class Usuario(var nome:String,var email:String){
+data class Usuario(var nome:String,var email:String) : Recomendavel{
     val util = Util()
 
     init{
@@ -29,6 +29,14 @@ data class Usuario(var nome:String,var email:String){
         private set
 
     var jogosBuscados = mutableListOf<Jogo?>()
+    private val listaDeNotas:MutableList<Int> = mutableListOf<Int>()
+
+    override val media: Double
+        get() = listaDeNotas.average()
+
+    override fun recomendar(nota: Int) {
+        listaDeNotas.add(nota)
+    }
 
 
     constructor( nome:String,
@@ -42,7 +50,7 @@ data class Usuario(var nome:String,var email:String){
             }
 
     override fun toString(): String {
-        return "Usuario(nome='$nome', email='$email', dataNascimento=$dataNascimento, usuario=$usuario, id=$id)"
+        return "Usuario(nome='$nome', email='$email', dataNascimento=$dataNascimento, usuario=$usuario, id=$id, reputação=$media)"
     }
 
     fun createId(){

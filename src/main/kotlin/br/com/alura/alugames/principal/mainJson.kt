@@ -29,11 +29,21 @@ fun main(){
         val currentGamer3 = listaUsuarios.get(5)
         val selectedGame3  = listaJogo.get(6)
         val selectedGame4  = listaJogo.get(7)
-        currentGamer3.plano = PlanoAssinatura("PRATA",9.90,3)
+        currentGamer3.plano = PlanoAssinatura("PRATA",9.90,3,0.15)
         currentGamer3.alugarJogo(selectedGame3,periodo)
         currentGamer3.alugarJogo(selectedGame2,periodo)
         currentGamer3.alugarJogo(selectedGame,periodo)
         currentGamer3.alugarJogo(selectedGame4,periodo)
         println(currentGamer3.jogosAlugados)
+
+        currentGamer3.recomendar(10)
+        currentGamer3.recomendar(10)
+        currentGamer3.recomendar(10)
+        println(currentGamer3.toString())
+
+        currentGamer3.alugarJogo(selectedGame3,periodo)
+        println(currentGamer3.jogosAlugados)
+
+
 
     }
