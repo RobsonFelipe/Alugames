@@ -29,6 +29,7 @@ data class Usuario(var nome:String,var email:String) : Recomendavel{
         private set
 
     var jogosBuscados = mutableListOf<Jogo?>()
+    val jogosRecomendados = mutableListOf<Jogo>()
     private val listaDeNotas:MutableList<Int> = mutableListOf<Int>()
 
     override val media: Double
@@ -69,6 +70,12 @@ data class Usuario(var nome:String,var email:String) : Recomendavel{
         return jogosAlugados
             .filter { aluguel ->  aluguel.periodo.dataInicial.monthValue == mes}
             .map { aluguel ->  aluguel.jogo}
+    }
+
+    fun recomendarJogo(jogo:Jogo, nota:Int){
+        jogo.recomendar(nota)
+        jogosRecomendados.add(jogo)
+
     }
 
     companion object{

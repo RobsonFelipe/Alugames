@@ -1,8 +1,6 @@
 package br.com.alura.alugames.model
 
 import org.api.test.br.com.alura.alugames.model.Jogo
-import java.time.LocalDate
-import java.time.Period
 
 data class Aluguel(val gamer:Usuario,
                    val jogo: Jogo,

@@ -3,6 +3,8 @@ package br.com.alura.alugames.principal
 import br.com.alura.alugames.model.Periodo
 import br.com.alura.alugames.model.PlanoAssinatura
 import br.com.alura.alugames.service.ApiConsumer
+import com.google.gson.GsonBuilder
+import java.io.File
 import java.time.LocalDate
 import java.time.Period
 
@@ -13,37 +15,33 @@ fun main(){
         val listaUsuarios = consumer.searchGamer()
 
 
-        val currentGamer = listaUsuarios.get(3)
-        val selectedGame  = listaJogo.get(4)
+        val gamerCaroline = listaUsuarios.get(3)
+        val jogoResidentVillage = listaJogo.get(10)
+        val jogoSpider = listaJogo.get(13)
+        val jogoTheLastOfUs = listaJogo.get(2)
+        val jogoDandara = listaJogo.get(5)
+        val jogoAssassins = listaJogo.get(4)
+        val jogoCyber = listaJogo.get(6)
+        val jogoGod = listaJogo.get(7)
+        val jogoSkyrim = listaJogo.get(18)
 
-        val currentGamer2 = listaUsuarios.get(3)
-        val selectedGame2  = listaJogo.get(2)
+        gamerCaroline.recomendarJogo(jogoResidentVillage, 7)
+        gamerCaroline.recomendarJogo(jogoTheLastOfUs, 10)
+        gamerCaroline.recomendarJogo(jogoAssassins, 8)
+        gamerCaroline.recomendarJogo(jogoCyber, 7)
+        gamerCaroline.recomendarJogo(jogoGod, 10)
+        gamerCaroline.recomendarJogo(jogoDandara, 8)
+        gamerCaroline.recomendarJogo(jogoSkyrim, 8)
+        gamerCaroline.recomendarJogo(jogoSpider, 6)
 
-        val periodo = Periodo(LocalDate.now(), LocalDate.now().plusDays(7))
-        val aluguel = currentGamer.alugarJogo(selectedGame, periodo)
-        val aluguel2 = currentGamer.alugarJogo(selectedGame2, periodo)
+        val gsonBuilder = GsonBuilder().excludeFieldsWithoutExposeAnnotation().create()
+        val serializacao = gsonBuilder.toJson(gamerCaroline.jogosRecomendados)
 
-        println(aluguel)
-        println(currentGamer.jogosAlugados)
+        println(serializacao)
 
-        val currentGamer3 = listaUsuarios.get(5)
-        val selectedGame3  = listaJogo.get(6)
-        val selectedGame4  = listaJogo.get(7)
-        currentGamer3.plano = PlanoAssinatura("PRATA",9.90,3,0.15)
-        currentGamer3.alugarJogo(selectedGame3,periodo)
-        currentGamer3.alugarJogo(selectedGame2,periodo)
-        currentGamer3.alugarJogo(selectedGame,periodo)
-        currentGamer3.alugarJogo(selectedGame4,periodo)
-        println(currentGamer3.jogosAlugados)
-
-        currentGamer3.recomendar(10)
-        currentGamer3.recomendar(10)
-        currentGamer3.recomendar(10)
-        println(currentGamer3.toString())
-
-        currentGamer3.alugarJogo(selectedGame3,periodo)
-        println(currentGamer3.jogosAlugados)
-
+        val arquivo = File("JogosRecomendados_$gamerCaroline.nome.json")
+        arquivo.writeText(serializacao)
+        println(arquivo.absolutePath)
 
 
     }

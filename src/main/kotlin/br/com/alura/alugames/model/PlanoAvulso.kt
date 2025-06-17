@@ -1,11 +1,15 @@
 package br.com.alura.alugames.model
 
+import java.math.BigDecimal
+
 class PlanoAvulso(tipo:String): Plano(tipo){
 
-    override fun obterValorAluguel(aluguel: Aluguel): Double {
+    private final val DESCONTO_AVULSO = BigDecimal(0.1)
+
+    override fun obterValorAluguel(aluguel: Aluguel): BigDecimal {
         var valorPadrao = super.obterValorAluguel(aluguel)
         if (aluguel.gamer.media > 8){
-            valorPadrao -= valorPadrao * 0.1
+            valorPadrao -= valorPadrao * DESCONTO_AVULSO
         }
         return valorPadrao
 
