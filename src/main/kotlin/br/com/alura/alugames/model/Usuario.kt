@@ -1,8 +1,7 @@
 package br.com.alura.alugames.model
 
 import br.com.alura.alugames.util.Util
-import org.api.test.br.com.alura.alugames.model.Jogo
-import java.time.LocalDate
+import org.api.test.br.com.alura.alugames.model.Game
 import java.util.*
 import kotlin.random.Random
 
@@ -28,8 +27,8 @@ data class Usuario(var nome:String,var email:String) : Recomendavel{
     var id: String? = null
         private set
 
-    var jogosBuscados = mutableListOf<Jogo?>()
-    val jogosRecomendados = mutableListOf<Jogo>()
+    var jogosBuscados = mutableListOf<Game?>()
+    val jogosRecomendados = mutableListOf<Game>()
     private val listaDeNotas:MutableList<Int> = mutableListOf<Int>()
 
     override val media: Double
@@ -60,21 +59,21 @@ data class Usuario(var nome:String,var email:String) : Recomendavel{
         this.id = "$usuario#$tag"
     }
 
-    fun alugarJogo(jogo:Jogo, periodo:Periodo): Aluguel{
-        val aluguel = Aluguel(this,jogo,periodo)
+    fun alugarJogo(game:Game, periodo:Periodo): Aluguel{
+        val aluguel = Aluguel(this,game,periodo)
         jogosAlugados.add(aluguel)
         return aluguel
     }
 
-    fun jogosDoMes(mes:Int): List<Jogo> {
+    fun jogosDoMes(mes:Int): List<Game> {
         return jogosAlugados
             .filter { aluguel ->  aluguel.periodo.dataInicial.monthValue == mes}
-            .map { aluguel ->  aluguel.jogo}
+            .map { aluguel ->  aluguel.game}
     }
 
-    fun recomendarJogo(jogo:Jogo, nota:Int){
-        jogo.recomendar(nota)
-        jogosRecomendados.add(jogo)
+    fun recomendarJogo(game:Game, nota:Int){
+        game.recomendar(nota)
+        jogosRecomendados.add(game)
 
     }
 

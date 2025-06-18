@@ -4,6 +4,6 @@ import java.math.BigDecimal
 
 sealed class Plano(val tipo:String) {
     open fun obterValorAluguel(aluguel:Aluguel): BigDecimal {
-        return  aluguel.jogo.preco * BigDecimal(aluguel.periodo.emDias)
+        return  aluguel.game.preco * BigDecimal(aluguel.periodo.emDias)
     }
 }

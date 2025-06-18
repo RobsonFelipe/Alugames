@@ -2,7 +2,7 @@ package org.api.test.br.com.alura.alugames.principal
 
 import br.com.alura.alugames.model.Usuario
 import br.com.alura.alugames.service.ApiConsumer
-import org.api.test.br.com.alura.alugames.model.Jogo
+import org.api.test.br.com.alura.alugames.model.Game
 import transformarEmIdade
 import java.util.*
 
@@ -23,11 +23,11 @@ fun main() {
         val search = ApiConsumer()
         var informacaoJogo = search.searchGame(busca)
 
-        var meuJogo: Jogo? = null
+        var meuGame: Game? = null
 
         val result = runCatching {
             if (informacaoJogo != null) {
-                meuJogo = Jogo(informacaoJogo.info.title, informacaoJogo.info.thumb)
+                meuGame = Game(informacaoJogo.info.title, informacaoJogo.info.thumb)
             }
 
         }
@@ -43,17 +43,17 @@ fun main() {
             if (opcao.equals("s",true)){
                 println("Insira a sua descrição personalizada.")
                 val descricaoPersonalizada = leitura.nextLine()
-                meuJogo?.descricao  = descricaoPersonalizada
-                println(meuJogo)
+                meuGame?.descricao  = descricaoPersonalizada
+                println(meuGame)
 
             } else {
                 println("Descrição vai ser definida como o nome do jogo")
-                meuJogo?.descricao  = meuJogo?.titulo
-                println(meuJogo)
+                meuGame?.descricao  = meuGame?.titulo
+                println(meuGame)
             }
 
-            if (meuJogo != null) {
-                usuario.jogosBuscados.add(meuJogo)
+            if (meuGame != null) {
+                usuario.jogosBuscados.add(meuGame)
             }
 
 

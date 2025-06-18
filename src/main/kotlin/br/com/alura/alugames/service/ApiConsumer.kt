@@ -8,7 +8,7 @@ import br.com.alura.alugames.util.mapperUsuario
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import org.api.test.br.com.alura.alugames.model.InfoJogo
-import org.api.test.br.com.alura.alugames.model.Jogo
+import org.api.test.br.com.alura.alugames.model.Game
 import java.net.URI
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
@@ -37,7 +37,7 @@ class ApiConsumer {
 
     }
 
-    fun buscaJogosJson(): List<Jogo> {
+    fun buscaJogosJson(): List<Game> {
         val json = createHttpRequest(URL_JSON_JOGOS)
 
         val gson = Gson()
